@@ -1,15 +1,121 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+
+/*define custom properties that multiple classes will use*/
+:root {
+    --line-border-fill: #3498db;
+    --line-border-empty: #e0e0e0;
+
+}
 
 * {
     box-sizing: border-box;
 }
 
 body {
-    font-family: 'Roboto Condensed', sans-serif;
+    background-color: #f6f7fb;
+    font-family: 'Muli', sans-serif;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     height: 100vh;
     overflow: hidden;
+    margin: 0;
+}
+
+.container {
+    text-align: center;
+}
+
+.progress-container {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    margin-bottom: 30px;
+    max-width: 100%;
+    width: 350px;
+}
+
+/*this will be the faint gray line behind the blue line*/
+.progress-container::before {
+    /*when using before/after, need to add content and set it to an empty string*/
+    content: '';
+    background-color: var(--line-border-empty);
+    /*using an absolute position in relation to the progress container position being relative, so it will stay in a fixed position within the container*/
+    position: absolute;
+    top: 50%;
+    left: 0;
+    /*need to transform the Y axis so that the middle of the line sits in the middle of the number, and not the top of the line*/
+    transform: translateY(-50%);
+    height: 4px;
+    width: 100%; /*this will represent the empty line*/
+    /*make sure the line is behind the numbers/circles*/
+    z-index: -1;
+}
+
+/*styling for the blue line*/
+.progress {
+    background-color: var(--line-border-fill);
+    /*using an absolute position in relation to the progress container position being relative, so it will stay in a fixed position within the container*/
+    position: absolute;
+    top: 50%;
+    left: 0;
+    /*need to transform the Y axis so that the middle of the line sits in the middle of the number, and not the top of the line*/
+    transform: translateY(-50%);
+    height: 4px;
+    width: 0%; /*will start at 0% and be adjusted as we click*/
+    /*make sure the line is behind the numbers/circles*/
+    z-index: -1;
+    transition: .4s ease;
+}
+
+/*styling for circles around the numbers*/
+.circle {
+    background-color: #fff;
+    color: #999;
+    /*border-radius, height, and width is what makes the circle round*/
+    border-radius: 50%;
+    height: 30px;
+    width: 30px;
+    /*make the numbers sit in the center of the circles*/
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid var(--line-border-empty);
+    /*transition needed so that the border will change depending on what step we are on and where the blue line is*/ 
+    transition: .4s ease;
+}
+
+/*styling is the circle has the active class on it*/
+.circle.active {
+    border-color: var(--line-border-fill);
+}
+
+/*button styling*/
+.btn {
+    background-color: var(--line-border-fill);
+    color: #fff;
+    border: 0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: inherit;
+    padding: 8px 30px;
+    margin: 5px;
+    font-size: 14px;
+}
+
+/*scaling for button when clicked*/
+.btn:active {
+    /*this will make it look like the button is being clicked*/
+    transform: scale(.98);
+}
+
+/*get rid of the outline when the button is in focus*/
+.btn:focus {
+    outline: 0;
+}
+
+/*if the button is disabled, make it gray*/
+.btn:disabled {
+    background-color: var(--line-border-empty);
+    cursor: not-allowed;
 }
