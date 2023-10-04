@@ -9,6 +9,6 @@
 2. git checkout --orphan *filename*
 3. git rm -rf
 4. create initial files
-5. git add .
+5. git add *individual files to add*
 6. git commit -a -m "commit message"
 7. git push origin *orphan-filename*
